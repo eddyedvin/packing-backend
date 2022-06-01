@@ -3,6 +3,7 @@ const morgan = require('morgan');
 
 const stageRouter = require('./routes/stageRoutes');
 const listRouter = require('./routes/listRoutes');
+const todoRouter = require('./routes/todoRoutes');
 
 const app = express();
 
@@ -14,5 +15,6 @@ app.use(express.json());
 
 app.use('/stage', stageRouter);
 app.use('/list', listRouter);
+app.use('/todo', todoRouter);
 
 module.exports = app;

@@ -5,7 +5,7 @@ const stageSchema = new mongoose.Schema({
     type: String,
     required: [true, 'A Stage must have a name'],
   },
-  items: [String],
+  todos: [String],
 });
 
 const Stage = mongoose.model('Stage', stageSchema);
