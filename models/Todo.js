@@ -5,7 +5,11 @@ const todoSchema = new mongoose.Schema({
     type: String,
     required: [true, 'A todo must have a name'],
   },
-  parentId: {
+  stageId: {
+    type: String,
+    required: [true, 'a todo must have a parent'],
+  },
+  listId: {
     type: String,
     required: [true, 'a todo must have a parent'],
   },

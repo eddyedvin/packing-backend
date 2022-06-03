@@ -10,6 +10,21 @@ exports.getAllStage = async (req, res) => {
   });
 };
 
+exports.getStage = async (req, res) => {
+  const todosOnStage = await Todo.find({
+    listId: req.query.listId,
+    stageId: req.query.stageId,
+  });
+
+  const stages = await Stage.find();
+
+  res.status(200).json({
+    status: 'success',
+    results: stages.length,
+    data: stages,
+  });
+};
+
 exports.createStage = async (req, res) => {
   const newStage = await Stage.create(req.body);
 

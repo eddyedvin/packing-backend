@@ -1,4 +1,6 @@
 const List = require('../models/List');
+const Todo = require('../models/Todo');
+const Stage = require('../models/Stage');
 
 exports.getAllLists = async (req, res) => {
   const lists = await List.find();
@@ -13,10 +15,30 @@ exports.getAllLists = async (req, res) => {
 exports.getList = async (req, res) => {
   const list = await List.findById(req.params.id);
 
-  res.status(200).json({
-    status: 'success',
-    results: stages.length,
-    data: lists,
+  const stages = await Stage.find();
+
+  let todos = {};
+
+  // refactor!!!!!
+
+  stages.forEach((stage) => {
+    Todo.find({
+      listId: req.params.id,
+      stageId: stage._id,
+    }).then((todosOnStage) => {
+      todos[stage.name] = {
+        stageName: stage.name,
+        stageId: stage._id,
+        todos: todosOnStage,
+      };
+      // refactor!!!!!
+      if (Object.keys(todos).length === list.stages.length) {
+        res.status(200).json({
+          status: 'success',
+          data: { list, todos },
+        });
+      }
+    });
   });
 };
 

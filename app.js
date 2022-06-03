@@ -13,8 +13,8 @@ if (process.env.NODE_ENV === 'developement') {
 
 app.use(express.json());
 
-app.use('/stage', stageRouter);
 app.use('/list', listRouter);
+app.use('/stage', stageRouter);
 app.use('/todo', todoRouter);
 
 module.exports = app;

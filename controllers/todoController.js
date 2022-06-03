@@ -1,7 +1,10 @@
 const Todo = require('../models/Todo');
 
 exports.getTodoByParent = async (req, res) => {
-  const todos = await Todo.find({ parentId: req.params.id });
+  const todos = await Todo.find({
+    listId: req.query.listId,
+    stageId: req.query.stageId,
+  });
 
   res.status(200).json({
     status: 'success',
