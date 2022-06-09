@@ -22,7 +22,26 @@ exports.createTodo = async (req, res) => {
   });
 };
 
-exports.deleteList = async (req, res) => {
+exports.updateTodo = async (req, res) => {
+  const todo = await Todo.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  }).catch((err) => console.log(err));
+
+  if (!todo) {
+    res.status(500).json({
+      status: 'success',
+      data: 'no todo with that id',
+    });
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: { todo },
+  });
+};
+
+exports.deleteTodo = async (req, res) => {
   const todo = await Todo.findByIdAndDelete(req.params.id);
 
   if (!todo) {

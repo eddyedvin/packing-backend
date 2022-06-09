@@ -13,6 +13,13 @@ const todoSchema = new mongoose.Schema({
     type: String,
     required: [true, 'a todo must have a parent'],
   },
+  status: {
+    type: String,
+    enum: {
+      values: ['maybe', 'shopping', 'ready'],
+      message: 'only easy medium diffucult',
+    },
+  },
 });
 
 const Todo = mongoose.model('Todo', todoSchema);
