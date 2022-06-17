@@ -21,18 +21,20 @@ exports.getList = async (req, res) => {
 
   // refactor!!!!!
 
-  stages.forEach((stage) => {
+  stages.forEach((stage, index) => {
     Todo.find({
       listId: req.params.id,
       stageId: stage._id,
     }).then((todosOnStage) => {
-      todos[stage.name] = {
-        stageName: stage.name,
-        stageId: stage._id,
-        todos: todosOnStage,
-      };
+      if (list.stages.includes(stage._id)) {
+        todos[stage.name] = {
+          stageName: stage.name,
+          stageId: stage._id,
+          todos: todosOnStage,
+        };
+      }
       // refactor!!!!!
-      if (Object.keys(todos).length === list.stages.length) {
+      if (index === stages.length - 1) {
         res.status(200).json({
           status: 'success',
           data: { list, todos },
